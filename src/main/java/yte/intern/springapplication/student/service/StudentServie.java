@@ -14,7 +14,9 @@ public class StudentServie {
     private static final String STUDENT_ADDED_MESSAGE = "Student with student number %s has been added successfully";
     private static final String STUDENT_ALREADY_EXISTS_MESSAGE = "Student with student number %s already exists!";
     private static final String STUDENT_DOESNT_EXIST_MESSAGE = "Student with student number %s doesn't exists!";
+    private static final String STUDENT_DOESNT_EXIST_ID_MESSAGE = "Student with student id %s doesn't exists!";
     private static final String STUDENT_UPDATED_MESSAGE = "Student with id %s has been updated successfully!";
+    private static final String STUDENT_DELETED_MESSAGE = "Student with id %s has beeen deleted successfully!";
 
     private final StudentRepository studentRepository;
 
@@ -49,5 +51,14 @@ public class StudentServie {
         studentFromDB.updateStudent(updatedStudent);
         studentRepository.save(studentFromDB);
         return new MessageResponse(MessageType.SUCCESS, STUDENT_UPDATED_MESSAGE.formatted(id));
+    }
+
+    public MessageResponse deleteStudent(Long id) {
+        if (!studentRepository.existsById(id)) {
+            return new MessageResponse(MessageType.ERROR, STUDENT_DOESNT_EXIST_ID_MESSAGE.formatted(id));
+        }
+        studentRepository.deleteById(id);
+
+        return new MessageResponse(MessageType.SUCCESS, STUDENT_DELETED_MESSAGE.formatted(id));
     }
 }

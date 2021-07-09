@@ -40,4 +40,9 @@ public class StudentController {
     public MessageResponse updateStudent(@PathVariable Long id, @RequestBody @Valid UpdateStudentRequest request) {
         return studentServie.updateStudent(id, request.toStudent());
     }
+
+    @DeleteMapping("/{id}")
+    public MessageResponse deleteStudent(@PathVariable Long id) {
+        return studentServie.deleteStudent(id);
+    }
 }
