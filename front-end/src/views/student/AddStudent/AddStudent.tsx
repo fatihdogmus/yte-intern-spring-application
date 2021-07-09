@@ -30,6 +30,11 @@ export function AddStudent(props: Props) {
   const onFormChange = (event: ChangeEvent<HTMLInputElement>) => {
     const field = event.target.name;
     const value = event.target.value;
+    //react-hook-form
+    setStudentModel(updateFormState(field, value));
+  }
+
+  function updateFormState(field: string, value: string) {
     const newModelState = {...studentModel};
     switch (field) {
       case "firstName":
@@ -48,8 +53,7 @@ export function AddStudent(props: Props) {
         newModelState.studentNumber = value;
         break;
     }
-
-    setStudentModel(newModelState);
+    return newModelState;
   }
 
   return (
