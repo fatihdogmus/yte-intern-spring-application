@@ -3,6 +3,7 @@ package yte.intern.springapplication.student.controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import yte.intern.springapplication.common.dto.MessageResponse;
+import yte.intern.springapplication.student.controller.request.AddBookToStudentRequest;
 import yte.intern.springapplication.student.controller.request.AddStudentRequest;
 import yte.intern.springapplication.student.controller.request.UpdateStudentRequest;
 import yte.intern.springapplication.student.controller.response.StudentQueryResponse;
@@ -44,5 +45,11 @@ public class StudentController {
     @DeleteMapping("/{id}")
     public MessageResponse deleteStudent(@PathVariable Long id) {
         return studentServie.deleteStudent(id);
+    }
+
+    @PostMapping("/students/{id}/books")
+    public MessageResponse addBookToStudent(@RequestBody @Valid AddBookToStudentRequest addBookToStudentRequest,
+                                            @PathVariable Long id) {
+        return studentServie.addBookToStudent(id, addBookToStudentRequest.toBook());
     }
 }
