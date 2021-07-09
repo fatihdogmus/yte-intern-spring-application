@@ -1,4 +1,4 @@
-package yte.intern.springapplication.student.request;
+package yte.intern.springapplication.student.controller.request;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

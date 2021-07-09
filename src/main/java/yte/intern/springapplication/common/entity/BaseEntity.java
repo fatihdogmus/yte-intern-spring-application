@@ -1,5 +1,7 @@
 package yte.intern.springapplication.common.entity;
 
+import lombok.Getter;
+import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -10,6 +12,8 @@ import java.util.Objects;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
+@Getter
+@Accessors(fluent = true)
 public abstract class BaseEntity {
 
     @Id

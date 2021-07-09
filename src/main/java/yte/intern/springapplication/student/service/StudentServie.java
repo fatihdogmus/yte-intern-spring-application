@@ -6,11 +6,14 @@ import yte.intern.springapplication.common.enums.MessageType;
 import yte.intern.springapplication.student.entity.Student;
 import yte.intern.springapplication.student.repository.StudentRepository;
 
+import javax.persistence.EntityNotFoundException;
+
 @Service
 public class StudentServie {
 
     private static final String STUDENT_ADDED_MESSAGE = "Student with student number %s has been added successfully";
     private static final String STUDENT_ALREADY_EXISTS_MESSAGE = "Student with student number %s already exists!";
+    private final static String STUDENT_DOESNT_EXIST_MESSAGE = "Student with student number %s doesn't exists!";
 
     private final StudentRepository studentRepository;
 
@@ -32,5 +35,10 @@ public class StudentServie {
 
     private String studentAddedMessage(final String studentNumber) {
         return STUDENT_ADDED_MESSAGE.formatted(studentNumber);
+    }
+
+    public Student getStudentByStudentNumber(final String studentNumber) {
+        return studentRepository.findByStudentNumber(studentNumber)
+                .orElseThrow(() -> new EntityNotFoundException(STUDENT_DOESNT_EXIST_MESSAGE.formatted(studentNumber)));
     }
 }
