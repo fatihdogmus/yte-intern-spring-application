@@ -12,6 +12,7 @@ import yte.intern.springapplication.student.service.StudentServie;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @RestController
 @RequestMapping("/students")
@@ -22,6 +23,15 @@ public class StudentController {
 
     public StudentController(final StudentServie studentServie) {
         this.studentServie = studentServie;
+    }
+
+    @GetMapping
+    public List<StudentQueryResponse> getAllStudents() {
+        return studentServie.getAllStudents()
+                .stream()
+                .map(StudentQueryResponse::new)
+                .toList();
+
     }
 
     @PostMapping
@@ -47,7 +57,7 @@ public class StudentController {
         return studentServie.deleteStudent(id);
     }
 
-    @PostMapping("/students/{id}/books")
+    @PostMapping("/{id}/books")
     public MessageResponse addBookToStudent(@RequestBody @Valid AddBookToStudentRequest addBookToStudentRequest,
                                             @PathVariable Long id) {
         return studentServie.addBookToStudent(id, addBookToStudentRequest.toBook());

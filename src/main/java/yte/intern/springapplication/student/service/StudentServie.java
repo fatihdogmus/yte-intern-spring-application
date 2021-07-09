@@ -9,6 +9,7 @@ import yte.intern.springapplication.student.entity.Student;
 import yte.intern.springapplication.student.repository.StudentRepository;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @Service
 public class StudentServie {
@@ -24,6 +25,10 @@ public class StudentServie {
 
     public StudentServie(final StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
+    }
+
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
     }
 
     public MessageResponse addStudent(final Student newStudent) {
