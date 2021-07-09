@@ -1,14 +1,21 @@
 import {Button} from "@material-ui/core";
 import {AddStudent, StudentModel} from "./AddStudent/AddStudent";
-import {useState} from "react";
-import {StudentApi} from "./api/StudentApi";
+import {useEffect, useState} from "react";
+import {StudentApi, StudentQueryResponse} from "./api/StudentApi";
+import {StudentList} from "./StudentList/StudentList";
 
 
 export function StudentView() {
 
   const [isAddStudentModalOpen, setAddStudentModelOpen] = useState(false);
+  const [studentQueryResponses, setStudentQueryResponses] = useState<StudentQueryResponse[]>([]);
 
   const studentApi = new StudentApi();
+
+  useEffect(() => {
+    studentApi.getStudents()
+      .then(data => setStudentQueryResponses(data));
+  }, []);
 
   const addStudent = async (model: StudentModel) => {
     const messageResponse = await studentApi.addStudent(model);
@@ -22,6 +29,7 @@ export function StudentView() {
       <AddStudent isOpen={isAddStudentModalOpen}
                   handleClose={() => setAddStudentModelOpen(false)}
                   addStudent={addStudent}/>
+      <StudentList students={studentQueryResponses}/>
     </div>
   );
 }
