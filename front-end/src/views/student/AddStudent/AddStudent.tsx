@@ -3,10 +3,11 @@ import {ChangeEvent, useState} from "react";
 
 interface Props {
   isOpen: boolean;
-  handleClose: () => void
+  handleClose: () => void,
+  addStudent: (model: StudentModel) => void
 }
 
-interface StudentModel {
+export interface StudentModel {
   firstName: string;
   lastName: string;
   email: string;
@@ -67,7 +68,7 @@ export function AddStudent(props: Props) {
         <Button onClick={props.handleClose} color="secondary">
           Cancel
         </Button>
-        <Button onClick={() => console.log(studentModel)} color="primary">
+        <Button onClick={() => props.addStudent(studentModel)} color="primary">
           Submit
         </Button>
       </DialogActions>
