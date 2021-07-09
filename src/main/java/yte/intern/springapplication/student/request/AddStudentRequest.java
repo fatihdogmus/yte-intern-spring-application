@@ -3,6 +3,7 @@ package yte.intern.springapplication.student.request;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import yte.intern.springapplication.student.entity.Student;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -30,4 +31,8 @@ public class AddStudentRequest {
 
     @Size(min = 7, max = 7, message = "Student number must be 7 characters long")
     private final String studentNumber;
+
+    public Student toStudent() {
+        return new Student(firstName, lastName, email, tcKimlikNumber, studentNumber);
+    }
 }
