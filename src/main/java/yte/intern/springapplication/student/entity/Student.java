@@ -1,10 +1,14 @@
 package yte.intern.springapplication.student.entity;
 
+import lombok.Getter;
+import lombok.experimental.Accessors;
 import yte.intern.springapplication.common.entity.BaseEntity;
 
 import javax.persistence.Entity;
 
 @Entity
+@Getter
+@Accessors(fluent = true)
 public class Student extends BaseEntity {
 
     private String firstName;
