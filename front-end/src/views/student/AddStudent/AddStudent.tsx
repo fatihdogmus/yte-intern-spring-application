@@ -1,11 +1,55 @@
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField} from "@material-ui/core";
+import {ChangeEvent, useState} from "react";
 
 interface Props {
   isOpen: boolean;
   handleClose: () => void
 }
 
+interface StudentModel {
+  firstName: string;
+  lastName: string;
+  email: string;
+  tcKimlikNumber: string;
+  studentNumber: string;
+}
+
+const initialState: StudentModel = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  tcKimlikNumber: "",
+  studentNumber: ""
+};
+
 export function AddStudent(props: Props) {
+
+  const [studentModel, setStudentModel] = useState<StudentModel>(initialState);
+
+  const onFormChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const field = event.target.name;
+    const value = event.target.value;
+    const newModelState = {...studentModel};
+    switch (field) {
+      case "firstName":
+        newModelState.firstName = value;
+        break;
+      case "lastName":
+        newModelState.lastName = value;
+        break;
+      case "email":
+        newModelState.email = value;
+        break;
+      case "tcKimlikNumber":
+        newModelState.tcKimlikNumber = value;
+        break;
+      case "studentNumber":
+        newModelState.studentNumber = value;
+        break;
+    }
+
+    setStudentModel(newModelState);
+  }
 
   return (
     <Dialog
@@ -13,18 +57,18 @@ export function AddStudent(props: Props) {
       onClose={props.handleClose}>
       <DialogTitle>Add student</DialogTitle>
       <DialogContent>
-        <TextField fullWidth name="firstName" label="First name"/>
-        <TextField fullWidth name="lastName" label="Last name"/>
-        <TextField fullWidth name="email" label="E-mail"/>
-        <TextField fullWidth name="tcKimlikNumber" label="Tc Kimlik Number"/>
-        <TextField fullWidth name="studentNumber" label="Student Number"/>
+        <TextField onChange={onFormChange} fullWidth name="firstName" label="First name"/>
+        <TextField onChange={onFormChange} fullWidth name="lastName" label="Last name"/>
+        <TextField onChange={onFormChange} fullWidth name="email" label="E-mail"/>
+        <TextField onChange={onFormChange} fullWidth name="tcKimlikNumber" label="Tc Kimlik Number"/>
+        <TextField onChange={onFormChange} fullWidth name="studentNumber" label="Student Number"/>
       </DialogContent>
       <DialogActions>
         <Button onClick={props.handleClose} color="secondary">
           Cancel
         </Button>
-        <Button onClick={() => console.log("hebele")} color="primary">
-          Subscribe
+        <Button onClick={() => console.log(studentModel)} color="primary">
+          Submit
         </Button>
       </DialogActions>
     </Dialog>
