@@ -3,6 +3,8 @@ import {AddStudent, StudentModel} from "./AddStudent/AddStudent";
 import {useEffect, useState} from "react";
 import {StudentApi, StudentQueryResponse} from "./api/StudentApi";
 import {StudentList} from "./StudentList/StudentList";
+import {MessageType} from "../../common/dto/MessageResponse";
+import {toast} from "react-toastify";
 
 
 export function StudentView() {
@@ -12,15 +14,25 @@ export function StudentView() {
 
   const studentApi = new StudentApi();
 
-  useEffect(() => {
+  function fetchStudents() {
     studentApi.getStudents()
       .then(data => setStudentQueryResponses(data));
+  }
+
+  useEffect(() => {
+    fetchStudents();
   }, []);
 
   const addStudent = async (model: StudentModel) => {
     const messageResponse = await studentApi.addStudent(model);
-    console.log(messageResponse.message);
-    setAddStudentModelOpen(false);
+    console.log(messageResponse);
+    if (messageResponse.messageType === MessageType.SUCCESS) {
+      toast.success(messageResponse.message);
+      setAddStudentModelOpen(false);
+      fetchStudents();
+    } else {
+      toast.error(messageResponse.message);
+    }
   }
 
   return (
