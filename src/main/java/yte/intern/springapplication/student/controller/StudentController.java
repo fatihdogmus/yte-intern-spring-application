@@ -4,6 +4,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import yte.intern.springapplication.common.dto.MessageResponse;
 import yte.intern.springapplication.student.controller.request.AddStudentRequest;
+import yte.intern.springapplication.student.controller.request.UpdateStudentRequest;
 import yte.intern.springapplication.student.controller.response.StudentQueryResponse;
 import yte.intern.springapplication.student.entity.Student;
 import yte.intern.springapplication.student.service.StudentServie;
@@ -33,5 +34,10 @@ public class StudentController {
             @Size(min = 7, max = 7, message = "Student number must be 7 characters long") final String studentNumber) {
         Student student = studentServie.getStudentByStudentNumber(studentNumber);
         return new StudentQueryResponse(student);
+    }
+
+    @PutMapping("/{id}")
+    public MessageResponse updateStudent(@PathVariable Long id, @RequestBody @Valid UpdateStudentRequest request) {
+        return studentServie.updateStudent(id, request.toStudent());
     }
 }
