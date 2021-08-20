@@ -2,20 +2,14 @@ package yte.intern.springapplication.student.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import yte.intern.springapplication.common.entity.BaseEntity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 @Entity
 @Getter
 @NoArgsConstructor
-public class Student {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Student extends BaseEntity {
 
     private String firstName;
     private String lastName;
