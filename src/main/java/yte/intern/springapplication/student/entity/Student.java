@@ -28,4 +28,12 @@ public class Student extends BaseEntity {
         this.tcKimlikNumber = tcKimlikNumber;
         this.studentNumber = studentNumber;
     }
+
+    public void updateStudent(Student newStudent) {
+        this.firstName = newStudent.firstName;
+        this.lastName = newStudent.lastName;
+        this.email = newStudent.email;
+        this.tcKimlikNumber = newStudent.tcKimlikNumber;
+        this.studentNumber = newStudent.studentNumber;
+    }
 }
