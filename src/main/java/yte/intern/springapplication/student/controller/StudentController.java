@@ -2,6 +2,7 @@ package yte.intern.springapplication.student.controller;
 
 import org.springframework.web.bind.annotation.*;
 import yte.intern.springapplication.common.dto.MessageResponse;
+import yte.intern.springapplication.student.controller.request.AddBokkToStudentRequest;
 import yte.intern.springapplication.student.controller.request.AddStudentRequest;
 import yte.intern.springapplication.student.controller.request.UpdateStudentRequest;
 import yte.intern.springapplication.student.controller.response.StudentQueryResponse;
@@ -43,5 +44,10 @@ public class StudentController {
     @DeleteMapping("/{id}")
     public MessageResponse deleteStudent(@PathVariable Long id) {
         return studentService.deleteStudent(id);
+    }
+
+    @PostMapping("/{id}/books")
+    public MessageResponse addBookToStuden(@PathVariable Long id, @RequestBody AddBokkToStudentRequest addBokkToStudentRequest) {
+        return studentService.addBookToStudent(id, addBokkToStudentRequest.toEntity());
     }
 }

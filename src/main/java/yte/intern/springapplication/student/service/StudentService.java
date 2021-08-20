@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yte.intern.springapplication.common.dto.MessageResponse;
 import yte.intern.springapplication.common.dto.MessageType;
+import yte.intern.springapplication.student.entity.Book;
 import yte.intern.springapplication.student.entity.Student;
 import yte.intern.springapplication.student.repository.StudentRepository;
 
@@ -42,5 +43,17 @@ public class StudentService {
         studentRepository.deleteById(id);
 
         return new MessageResponse("Student with id %s has been deleted successfully!", MessageType.SUCCESS);
+    }
+
+    @Transactional
+    public MessageResponse addBookToStudent(Long id, Book toBeAddedBook) {
+        Student student = studentRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Student with id %s is not found".formatted(id)));
+        MessageResponse messageResponse = student.canAddBook(toBeAddedBook);
+        if (messageResponse.hasError()) {
+            return messageResponse;
+        }
+        student.addBook(toBeAddedBook);
+
+        return new MessageResponse("Book %s has been added successfully!".formatted(toBeAddedBook.getName()), MessageType.SUCCESS);
     }
 }

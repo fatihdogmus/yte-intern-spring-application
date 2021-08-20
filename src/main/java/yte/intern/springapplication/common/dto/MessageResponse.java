@@ -9,4 +9,8 @@ public class MessageResponse {
 
     private final String message;
     private final MessageType messageType;
+
+    public boolean hasError() {
+        return messageType.equals(MessageType.ERROR);
+    }
 }

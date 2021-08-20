@@ -2,6 +2,8 @@ package yte.intern.springapplication.student.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import yte.intern.springapplication.common.dto.MessageResponse;
+import yte.intern.springapplication.common.dto.MessageType;
 import yte.intern.springapplication.common.entity.BaseEntity;
 
 import javax.persistence.CascadeType;
@@ -40,6 +42,25 @@ public class Student extends BaseEntity {
 
         Book algorithmBook = new Book("Introduction to algorithms", LocalDate.parse("1989-01-01"), 1312);
         books.add(algorithmBook);
+    }
+
+    public MessageResponse canAddBook(Book toBeAddedBook) {
+        if (hasSameBook(toBeAddedBook)) {
+            return new MessageResponse("Student has already the book %s".formatted(toBeAddedBook.getName()), MessageType.ERROR);
+        }
+        return new MessageResponse("", MessageType.SUCCESS);
+    }
+
+    private boolean hasSameBook(Book toBeAddedBook) {
+        return books.stream()
+                .anyMatch(book -> book.hasSameNameAs(toBeAddedBook));
+    }
+
+    public void addBook(Book toBeAddedBook) {
+        if (canAddBook(toBeAddedBook).hasError()) {
+            throw new IllegalArgumentException();
+        }
+        books.add(toBeAddedBook);
     }
 
     public void updateStudent(Student newStudent) {

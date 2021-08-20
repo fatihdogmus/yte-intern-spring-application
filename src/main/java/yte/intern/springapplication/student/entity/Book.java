@@ -23,4 +23,8 @@ public class Book extends BaseEntity {
         this.publishDate = publishDate;
         this.pageCount = pageCount;
     }
+
+    public boolean hasSameNameAs(Book toBeAddedBook) {
+        return name.equals(toBeAddedBook.name);
+    }
 }
