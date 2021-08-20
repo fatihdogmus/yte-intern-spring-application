@@ -4,7 +4,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import yte.intern.springapplication.common.entity.BaseEntity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -17,6 +23,10 @@ public class Student extends BaseEntity {
     private String tcKimlikNumber;
     private String studentNumber;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "student_id")
+    private Set<Book> books = new HashSet<>();
+
     public Student(final String firstName,
                    final String lastName,
                    final String email,
@@ -27,6 +37,9 @@ public class Student extends BaseEntity {
         this.email = email;
         this.tcKimlikNumber = tcKimlikNumber;
         this.studentNumber = studentNumber;
+
+        Book algorithmBook = new Book("Introduction to algorithms", LocalDate.parse("1989-01-01"), 1312);
+        books.add(algorithmBook);
     }
 
     public void updateStudent(Student newStudent) {
