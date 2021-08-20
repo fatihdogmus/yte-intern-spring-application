@@ -7,6 +7,8 @@ import yte.intern.springapplication.common.dto.MessageType;
 import yte.intern.springapplication.student.entity.Student;
 import yte.intern.springapplication.student.repository.StudentRepository;
 
+import java.util.List;
+
 @Service
 public class StudentService {
 
@@ -20,5 +22,9 @@ public class StudentService {
     public MessageResponse addStudent(Student student) {
         studentRepository.save(student);
         return new MessageResponse("Student has been saved successfully!", MessageType.SUCCESS);
+    }
+
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
     }
 }
