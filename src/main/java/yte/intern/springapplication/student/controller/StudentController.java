@@ -3,6 +3,7 @@ package yte.intern.springapplication.student.controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import yte.intern.springapplication.common.dto.MessageResponse;
 import yte.intern.springapplication.student.controller.request.AddStudentRequest;
 import yte.intern.springapplication.student.entity.Student;
 import yte.intern.springapplication.student.service.StudentService;
@@ -19,8 +20,8 @@ public class StudentController {
     }
 
     @PostMapping("/students")
-    public void addStudent(@Valid @RequestBody AddStudentRequest addStudentRequest) {
+    public MessageResponse addStudent(@Valid @RequestBody AddStudentRequest addStudentRequest) {
         Student student = addStudentRequest.toEntity();
-        studentService.addStudent(student);
+        return studentService.addStudent(student);
     }
 }
