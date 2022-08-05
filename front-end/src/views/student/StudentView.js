@@ -6,7 +6,6 @@ import {AddStudent} from "./AddStudent/AddStudent";
 import {toast} from "react-toastify";
 import {StudentViewApi} from "./api/StudentViewApi";
 
-
 export function StudentView() {
 
   const [students, setStudents] = useState([]);
