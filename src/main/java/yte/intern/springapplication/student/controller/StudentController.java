@@ -1,6 +1,7 @@
 package yte.intern.springapplication.student.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import yte.intern.springapplication.common.response.MessageResponse;
 import yte.intern.springapplication.student.controller.requests.AddStudentRequest;
@@ -8,11 +9,13 @@ import yte.intern.springapplication.student.controller.responses.StudentQueryMod
 import yte.intern.springapplication.student.service.StudentService;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
 @RequestMapping("/students")
 @RequiredArgsConstructor
+@Validated
 public class StudentController {
 
     private final StudentService studentService;
@@ -31,7 +34,7 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public StudentQueryModel getById(@PathVariable Long id) {
+    public StudentQueryModel getById(@NotNull @PathVariable Long id) {
         return new StudentQueryModel(studentService.getById(id));
     }
 }
