@@ -1,8 +1,6 @@
 import * as React from 'react';
-import {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import {DataGrid} from '@mui/x-data-grid';
-import {default as axios} from "axios";
 
 const columns = [
   {
@@ -38,15 +36,7 @@ const columns = [
 ]
 
 
-export function ListStudents() {
-  const [students, setStudents] = useState([]);
-
-  useEffect(() => {
-    axios.get("/students")
-      .then(student => setStudents(student.data))
-  }, []);
-
-
+export function ListStudents({students}) {
   return (
     <Box sx={{height: 400, width: '100%'}}>
       <DataGrid
@@ -57,5 +47,6 @@ export function ListStudents() {
         checkboxSelection
         disableSelectionOnClick
       />
-    </Box>)
+    </Box>
+  );
 }

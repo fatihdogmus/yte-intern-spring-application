@@ -41,7 +41,6 @@ const WINDOWS_PATH_REGEXP = /^([a-zA-Z]:.*)$/;
 const UNC_WINDOWS_PATH_REGEXP = /^\/\/(\.\/)?(.*)$/;
 const PORTABLE_PATH_REGEXP = /^\/([a-zA-Z]:.*)$/;
 const UNC_PORTABLE_PATH_REGEXP = /^\/unc\/(\.dot\/)?(.*)$/;
-
 function fromPortablePath(p) {
   if (process.platform !== `win32`)
     return p;
@@ -54,7 +53,6 @@ function fromPortablePath(p) {
     return p;
   return p.replace(/\//g, `\\`);
 }
-
 function toPortablePath(p) {
   if (process.platform !== `win32`)
     return p;
@@ -69,7 +67,6 @@ function toPortablePath(p) {
 
 const builtinModules = new Set(Module.builtinModules || Object.keys(process.binding(`natives`)));
 const isBuiltinModule = (request) => request.startsWith(`node:`) || builtinModules.has(request);
-
 function readPackageScope(checkPath) {
   const rootSeparatorIndex = checkPath.indexOf(npath.sep);
   let separatorIndex;
@@ -88,7 +85,6 @@ function readPackageScope(checkPath) {
   } while (separatorIndex > rootSeparatorIndex);
   return false;
 }
-
 function readPackage(requestPath) {
   const jsonPath = npath.resolve(requestPath, `package.json`);
   if (!fs.existsSync(jsonPath))
@@ -105,7 +101,6 @@ async function tryReadFile(path2) {
     throw error;
   }
 }
-
 function tryParseURL(str, base) {
   try {
     return new URL(str, base);
@@ -113,13 +108,10 @@ function tryParseURL(str, base) {
     return null;
   }
 }
-
 let entrypointPath = null;
-
 function setEntrypointPath(file) {
   entrypointPath = file;
 }
-
 function getFileFormat(filepath) {
   var _a, _b;
   const ext = path.extname(filepath);
@@ -194,7 +186,6 @@ async function load$1(urlString, context, nextLoad) {
 
 const pathRegExp = /^(?![a-zA-Z]:[\\/]|\\\\|\.{0,2}(?:\/|$))((?:node:)?(?:@[^/]+\/)?[^/]+)\/*(.*|)$/;
 const isRelativeRegexp = /^\.{0,2}\//;
-
 async function resolve$1(originalSpecifier, context, nextResolve) {
   var _a;
   const {findPnpApi} = moduleExports;
