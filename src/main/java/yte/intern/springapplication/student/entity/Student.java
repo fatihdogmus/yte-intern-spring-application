@@ -2,18 +2,17 @@ package yte.intern.springapplication.student.entity;
 
 import lombok.Getter;
 import yte.intern.springapplication.book.entity.Book;
+import yte.intern.springapplication.common.entity.BaseEntity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Getter
-public class Student {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Student extends BaseEntity {
 
     private String name;
     private String surname;
