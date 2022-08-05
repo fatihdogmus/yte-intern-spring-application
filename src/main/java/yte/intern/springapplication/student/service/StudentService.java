@@ -30,4 +30,21 @@ public class StudentService {
         return studentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Student not found"));
     }
+
+    public MessageResponse deleteStudentById(Long id) {
+        studentRepository.deleteById(id);
+
+        return new MessageResponse(ResponseType.SUCCESS, "Student has been deleted successfully");
+    }
+
+    public MessageResponse updateStudent(Long id, Student updatedStudent) {
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Student not found"));
+
+        student.update(updatedStudent);
+
+        studentRepository.save(student);
+
+        return new MessageResponse(ResponseType.SUCCESS, "Student has been updated successfully");
+    }
 }

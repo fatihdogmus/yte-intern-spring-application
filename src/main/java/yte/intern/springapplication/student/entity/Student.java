@@ -37,4 +37,10 @@ public class Student extends BaseEntity {
     @OneToMany
     @JoinColumn(name = "student_id")
     private Set<Book> books = new HashSet<>();
+
+    public void update(Student updatedStudent) {
+        this.name = updatedStudent.name;
+        this.surname = updatedStudent.surname;
+        this.email = updatedStudent.email;
+    }
 }
