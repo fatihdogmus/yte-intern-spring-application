@@ -1,10 +1,10 @@
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {ListStudents} from "./ListStudents/ListStudents";
-import axios from "axios";
 import {Button} from "@mui/material";
 import {AddStudent} from "./AddStudent/AddStudent";
 import {toast} from "react-toastify";
+import {StudentViewApi} from "./api/StudentViewApi";
 
 
 export function StudentView() {
@@ -12,20 +12,24 @@ export function StudentView() {
   const [students, setStudents] = useState([]);
   const [isAddStudentDialogOpen, setAddStudentDialogOpen] = useState(false);
 
+  const studentViewApi = new StudentViewApi();
+
+  async function getStudents() {
+    const response = await studentViewApi.getStudents();
+    setStudents(response.data);
+  }
+
   useEffect(() => {
-    axios.get("/students")
-      .then(student => setStudents(student.data))
+    getStudents();
   }, []);
 
-  function addStudent(formState) {
-    axios.post("/students", formState)
-      .then(response => {
-        const messageResponse = response.data;
-        if (messageResponse.responseType === "SUCCESS") {
-          toast.success(messageResponse.message);
-          setAddStudentDialogOpen(false);
-        }
-      })
+  async function addStudent(formState) {
+    const response = await studentViewApi.addStudent(formState);
+    const messageResponse = response.data;
+    if (messageResponse.responseType === "SUCCESS") {
+      toast.success(messageResponse.message);
+      setAddStudentDialogOpen(false);
+    }
   }
 
   return (
