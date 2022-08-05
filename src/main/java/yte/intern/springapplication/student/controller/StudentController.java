@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import yte.intern.springapplication.student.controller.requests.AddStudentRequest;
 import yte.intern.springapplication.student.service.StudentService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/students")
 @RequiredArgsConstructor
@@ -16,7 +18,7 @@ public class StudentController {
     private final StudentService studentService;
 
     @PostMapping
-    public void addStudent(@RequestBody AddStudentRequest addStudentRequest) {
+    public void addStudent(@Valid @RequestBody AddStudentRequest addStudentRequest) {
         studentService.addStudent(addStudentRequest.toDomainEntity());
     }
 }
