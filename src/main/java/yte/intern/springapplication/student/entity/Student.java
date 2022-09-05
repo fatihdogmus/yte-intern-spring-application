@@ -33,4 +33,11 @@ public class Student extends BaseEntity {
     @OneToMany
     @JoinColumn(name = "student_id")
     private List<Book> books = new ArrayList<>();
+
+    public void update(Student newStudent) {
+        this.name = newStudent.name;
+        this.surname = newStudent.surname;
+        this.email = newStudent.email;
+        this.studentNumber = newStudent.studentNumber;
+    }
 }

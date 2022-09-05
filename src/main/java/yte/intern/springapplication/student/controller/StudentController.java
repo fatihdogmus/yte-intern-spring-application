@@ -33,4 +33,15 @@ public class StudentController {
         return StudentResponse.fromEntity(studentService.getStudentById(id));
     }
 
+    @PutMapping("/{id}")
+    public MessageResponse updateStudent(@RequestBody @Valid UpdateStudentRequest request,
+                                         @PathVariable Long id) {
+        return studentService.updateStudent(id, request.toEntity());
+    }
+
+    @DeleteMapping("/{id}")
+    public MessageResponse deleteStudent(@PathVariable Long id) {
+        return studentService.deleteStudent(id);
+    }
+
 }
