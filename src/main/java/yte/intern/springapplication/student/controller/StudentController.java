@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import yte.intern.springapplication.common.response.MessageResponse;
 import yte.intern.springapplication.student.service.StudentService;
 
 import javax.validation.Valid;
@@ -17,8 +18,8 @@ public class StudentController {
     private final StudentService studentService;
 
     @PostMapping
-    public void addStudent(@RequestBody @Valid AddStudentRequest request) {
-        studentService.addStudent(request.toEntity());
+    public MessageResponse addStudent(@RequestBody @Valid AddStudentRequest request) {
+        return studentService.addStudent(request.toEntity());
     }
 
 }
