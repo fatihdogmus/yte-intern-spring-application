@@ -1,6 +1,7 @@
 package yte.intern.springapplication.student.controller;
 
 import yte.intern.springapplication.common.validation.TcKimlikNo;
+import yte.intern.springapplication.student.entity.Student;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -24,4 +25,14 @@ public record AddStudentRequest(
         String studentNumber
 
 ) {
+
+    public Student toEntity() {
+        return new Student(
+                name,
+                surname,
+                email,
+                tcKimlikNo,
+                studentNumber
+        );
+    }
 }
